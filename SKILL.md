@@ -28,6 +28,25 @@ in a UMG/Slate panel records as the scene with an empty corner, and nothing repo
 drawn in `AHUD::DrawHUD` on the Canvas *is* captured. If you don't know how the project draws its
 UI, grep for `AddViewportWidgetContent` / `AddToViewport` versus `DrawHUD` — or just use real-time.
 
+## Ask what to record: resolution and duration
+
+These two shape the whole take, so don't default them silently — a wrong guess means redoing the
+capture, and for a frame dump, minutes of rendering thrown away. Ask before running `launch` or
+`dump.py`:
+
+- **Resolution.** Offer a short list rather than an open question: **1920×1080** (1080p — the
+  default, and the only geometry verified on real hardware so far), **2560×1440** (1440p),
+  **3840×2160** (4K — a frame dump writes roughly 4× the PNG data per second, and a real-time take
+  needs a Mac fast enough to render and encode it live), or a custom size if the destination calls
+  for one (a specific Fab/Marketplace listing, for example). Passed as `--res WxH` to `launch` /
+  `dump.py`.
+- **Duration.** How many usable seconds after "go" (real-time) or after the ready marker (dump).
+  There's no good silent default — a showcase clip is commonly 15–30 s, a fuller walkthrough up to
+  a minute or more. Passed as `--duration` to `take` / `dump.py`.
+
+Ask both in one message, together with the permissions bundle below if that's also needed right now
+— one short list of questions beats several one-line ones.
+
 ## Ask first: what a recording touches outside the project
 
 A recording reaches well past the project. It asks macOS for privacy grants, may install an audio
